@@ -11,7 +11,7 @@ export const useAuth = () => {
       if (token) {
         try {
           const res = await api.get('/api/auth/profile/');
-          setUser(res.data.user || res.data);
+          setUser(res.data);
         } catch (error) {
           localStorage.removeItem('khpr_access_token');
           localStorage.removeItem('khpr_refresh_token');
@@ -29,14 +29,16 @@ export const useAuth = () => {
     localStorage.setItem('khpr_refresh_token', res.data.refresh);
     
     const profileRes = await api.get('/api/auth/profile/');
-    setUser(profileRes.data.user || profileRes.data);
+    setUser(profileRes.data);
   };
 
   const register = async (userData) => {
     const res = await api.post('/api/auth/register/', userData);
     localStorage.setItem('khpr_access_token', res.data.access);
     localStorage.setItem('khpr_refresh_token', res.data.refresh);
-    setUser(res.data.user);
+    
+    const profileRes = await api.get('/api/auth/profile/');
+    setUser(profileRes.data);
   };
 
   const logout = () => {
