@@ -16,7 +16,7 @@ export const MyOrdersPage = () => {
     queryKey: ['my-orders'],
     queryFn: async () => {
       const { data } = await api.get('/api/orders/my-orders/');
-      return data;
+      return data.results || data;
     },
   });
 

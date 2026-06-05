@@ -13,7 +13,7 @@ export const ShopPage = () => {
     queryKey: ['products'],
     queryFn: async () => {
       const { data } = await api.get('/api/products/');
-      return data;
+      return data.results || data;
     },
   });
 

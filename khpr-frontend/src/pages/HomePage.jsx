@@ -10,7 +10,7 @@ import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
 const fetchProducts = async () => {
   const { data } = await api.get('/api/products/');
-  return data;
+  return data.results || data;
 };
 
 export const HomePage = () => {
