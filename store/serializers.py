@@ -39,7 +39,7 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 class CustomerSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Customer

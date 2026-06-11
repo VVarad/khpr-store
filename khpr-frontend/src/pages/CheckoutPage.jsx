@@ -61,7 +61,11 @@ export const CheckoutPage = () => {
       });
       setStep(2);
     } catch (error) {
-      toast.error('Failed to save shipping details');
+      console.error("Profile update error:", error.response?.data || error.message);
+      const errorMsg = error.response?.data 
+        ? (typeof error.response.data === 'string' ? error.response.data.substring(0, 50) : Object.entries(error.response.data).map(([k, v]) => `${k}: ${v}`).join(', '))
+        : `Failed to save shipping details: ${error.message}`;
+      toast.error(errorMsg);
     }
   };
 

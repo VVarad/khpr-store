@@ -69,7 +69,8 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
-        return get_object_or_404(Customer, user=self.request.user)
+        customer, created = Customer.objects.get_or_create(user=self.request.user)
+        return customer
 
 class OrderCreateView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]

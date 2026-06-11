@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './hooks/useAuth';
 
 // Components
@@ -85,32 +86,34 @@ const AppRoutes = () => {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <CartProvider>
-        <Router>
-          <ScrollToTop />
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-grow flex flex-col">
-              <Suspense fallback={<PageLoader />}>
-                <AppRoutes />
-              </Suspense>
-            </main>
-            <Footer />
-          </div>
-          <Toaster 
-            position="bottom-center"
-            toastOptions={{
-              style: {
-                background: '#111111',
-                color: '#F5F0E8',
-                border: '1px solid #1E1E1E',
-                fontFamily: '"DM Sans", sans-serif',
-                fontSize: '14px',
-              }
-            }}
-          />
-        </Router>
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <Router>
+            <ScrollToTop />
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-grow flex flex-col">
+                <Suspense fallback={<PageLoader />}>
+                  <AppRoutes />
+                </Suspense>
+              </main>
+              <Footer />
+            </div>
+            <Toaster 
+              position="bottom-center"
+              toastOptions={{
+                style: {
+                  background: '#111111',
+                  color: '#F5F0E8',
+                  border: '1px solid #1E1E1E',
+                  fontFamily: '"DM Sans", sans-serif',
+                  fontSize: '14px',
+                }
+              }}
+            />
+          </Router>
+        </CartProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
